@@ -6,7 +6,7 @@ spring:
     tomcat:
       connection-properties: stringtype=unspecified
     password: password
-    url: jdbc:postgresql://localhost:5432/gvault-local-db
+    url: jdbc:postgresql://localhost:5432/pet-clinic-local-db
     username: postgres
 
   jpa:
