@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 5
+      data-source-properties: stringtype=unspecified
+    tomcat:
+      connection-properties: stringtype=unspecified
+    password: password
+    url: jdbc:postgresql://localhost:5432/gvault-local-db
+    username: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
