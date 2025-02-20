@@ -70,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
         UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AuthenticationResponse response = new AuthenticationResponse(authenticationToken, payload.getUsername());
         response.setUsername(principal.getUser().getUsername());
-        response.setFirstName(principal.getUser().getName());
+        response.setName(principal.getUser().getName());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

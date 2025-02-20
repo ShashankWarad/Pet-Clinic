@@ -41,6 +41,12 @@ public class User {
     @Column(nullable = false, name = "account_non_expired")
     private boolean accountNonExpired = true;
 
+    @Column(nullable = false, name = "address")
+    private String address;
+
+    @Column(nullable = false, name = "city")
+    private String city;
+
     @Column(nullable = false, name = "account_non_locked")
     private boolean accountNonLocked = true;
 
