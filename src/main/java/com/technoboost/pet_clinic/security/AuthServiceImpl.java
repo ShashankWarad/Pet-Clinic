@@ -77,16 +77,18 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ApiResponse signUp(CreateUserPayload payload) {
         User user = new User();
-        boolean b = userRepository.existsByUsernameAndEnabledTrue(payload.getUserName());
+        boolean b = userRepository.existsByUsernameAndEnabledTrue(payload.getUsername());
         if (b)
             throw new PetClinicException("Username already exist , PLease enter another email!");
         boolean c = userRepository.existsByMobileNumberAndEnabledTrue(payload.getMobileNumber());
         if (c)
             throw new PetClinicException("Mobile number already exist , PLease enter another Mobile number!");
         user.setName(payload.getName());
-        user.setUsername(payload.getUserName());
+        user.setUsername(payload.getUsername());
         user.setMobileNumber(payload.getMobileNumber());
         user.setPassword(encodePassword(payload.getPassword()));
+        user.setAddress(payload.getAddress());
+        user.setCity(payload.getCity());
         Role role = roleRepository.findByName("ADMIN").
                 orElseThrow(() -> new PetClinicException("Check role!"));
         user.setRoles(Collections.singleton(role));

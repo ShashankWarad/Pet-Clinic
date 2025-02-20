@@ -11,7 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateUserPayload {
     private String name;
-    private String userName;
+    private String username;
     private String password;
     private String mobileNumber;
+    private String address;
+    private String city;
 }
