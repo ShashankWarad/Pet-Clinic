@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,7 +18,8 @@ import java.util.Set;
 @Entity
 @ToString
 @Table(name = "users")
-public class User implements Serializable {
+@EntityListeners(AuditingEntityListener.class)
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -48,11 +50,11 @@ public class User implements Serializable {
     @Column(nullable = false, name = "enabled")
     private boolean enabled = true;
 
-    @Column(name = "created_date", nullable = false, updatable = false)
+    @Column(name = "created_date",nullable = false,updatable = false)
     @CreatedDate
     private LocalDateTime createdDate;
 
-    @Column(name = "last_modified_date")
+    @Column(name = "last_modified_date",nullable = false,updatable = false)
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 

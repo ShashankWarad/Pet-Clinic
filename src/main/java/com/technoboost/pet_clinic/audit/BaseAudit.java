@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class BaseAudit implements Serializable {
+public abstract class BaseAudit{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
