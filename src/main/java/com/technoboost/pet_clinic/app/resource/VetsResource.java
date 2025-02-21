@@ -1,7 +1,5 @@
 package com.technoboost.pet_clinic.app.resource;
 
-
-import com.technoboost.pet_clinic.app.response.VetsDto;
 import com.technoboost.pet_clinic.app.response.VetsResponse;
 import com.technoboost.pet_clinic.app.service.VetsService;
 import com.technoboost.pet_clinic.app.payload.VetCreatePayload;
@@ -9,8 +7,6 @@ import com.technoboost.pet_clinic.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
