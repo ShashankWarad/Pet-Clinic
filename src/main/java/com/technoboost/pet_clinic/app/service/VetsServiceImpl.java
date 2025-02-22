@@ -49,7 +49,7 @@ public class VetsServiceImpl implements VetsService {
 
     @Override
     public VetsResponse getAllVets() {
-        List<Vets> vets = vetsRepository.findAll();
+        List<Vets> vets = vetsRepository.findAllVetsAndActiveTrueAndDeletedFalse();
 
         List<VetsDto> vetsList = vets.stream().map(vet -> VetsDto.builder()
                 .vetName(vet.getFirstName() + " " + vet.getLastName())
