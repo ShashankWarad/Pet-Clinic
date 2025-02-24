@@ -39,5 +39,12 @@ public class UtilMethod {
         return date.format(formatter);
     }
 
+    public static LocalDateTime convertStringToDateFormat(String date) {
+        if (date == null) {
+            return null;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return LocalDateTime.parse(date,formatter);
+    }
 
 }

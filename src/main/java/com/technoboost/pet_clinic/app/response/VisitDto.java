@@ -1,5 +1,6 @@
-package com.technoboost.pet_clinic.app.payload;
+package com.technoboost.pet_clinic.app.response;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,10 +9,14 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class VisitsCreatePayload {
-    private Long petId;
+@Builder
+public class VisitDto {
 
-    private Long vetId;
+    private Long id;
+
+    private String petName;
+
+    private String vetName;
 
     private LocalDateTime visitDate;
 

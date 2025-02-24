@@ -12,6 +12,8 @@ public class VisitsUpdatePayload {
 
     private Long PetId;
 
+    private Long vetId;
+
     private LocalDate visitDate;
 
     private String description;

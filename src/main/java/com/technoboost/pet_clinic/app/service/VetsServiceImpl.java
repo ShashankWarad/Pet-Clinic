@@ -52,6 +52,7 @@ public class VetsServiceImpl implements VetsService {
         List<Vets> vets = vetsRepository.findAllVetsAndActiveTrueAndDeletedFalse();
 
         List<VetsDto> vetsList = vets.stream().map(vet -> VetsDto.builder()
+                .id(vet.getId())
                 .vetName(vet.getFirstName() + " " + vet.getLastName())
                 .specialties(vet.getSpecialties().stream().map(specialties ->
                         SpecialtiesDto.builder()

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Appointment Confirmed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .success-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .success-card:hover {
+            transform: translateY(-5px);
+        }
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            background: #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -40px auto 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .checkmark i {
+            font-size: 2.5rem;
+            color: white;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+<div class="container" >
+    <div class="row min-vh-100 align-items-center">
+        <div class="col-md-8 col-lg-6 mx-auto">
+            <div class="success-card text-center p-5">
+                <div class="checkmark">
+                    <i class="bi bi-check2-circle"></i>
+                </div>
+                <h2 class="fw-bold mb-3 text-primary">Appointment Confirmed!</h2>
+                <p class="lead text-muted mb-4">
+                    Your appointment has been successfully scheduled.
+                    We've sent a confirmation to your email with all the details.
+                </p>
+
+                <div class="details-card card border-0 shadow-sm mb-4">
+                    <div class="card-body text-start">
+                        <h5 class="mb-3 fw-semibold text-secondary"><i class="bi bi-info-circle me-2"></i>Appointment Details</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="bi bi-calendar me-2 text-primary"></i><strong>Date:</strong> <span th:text="${date}"></span></li>
+                            <li class="mb-2"><i class="bi bi-clock me-2 text-primary"></i><strong>Time:</strong> <span th:text="${time}"></span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+                    <a href="/api/auth/home" class="btn btn-primary btn-lg px-5">
+                        <i class="bi bi-house-door me-2"></i>Return Home
+                    </a>
+                </div>
+
+                <p class="text-muted mt-4 small">
+                    Need help? Contact us at
+                    <a href="mailto:support@petclinic.com" class="text-decoration-none">support@petclinic.com</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
