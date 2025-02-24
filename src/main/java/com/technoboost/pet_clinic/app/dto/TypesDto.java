@@ -1,10 +1,12 @@
 package com.technoboost.pet_clinic.app.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 public class TypesDto {
     private Long typesId;
 

@@ -3,6 +3,7 @@ package com.technoboost.pet_clinic.util;
 import com.technoboost.pet_clinic.exception.PetClinicException;
 import com.technoboost.pet_clinic.model.User;
 import com.technoboost.pet_clinic.security.UserPrincipal;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Component
 public class UtilMethod {
 
     public static String getPath() {
@@ -29,14 +31,12 @@ public class UtilMethod {
         }
         return principal.getUser();
     }
-    public static String convertDateFormat(LocalDateTime date) {
+    public static String convertDateFormat(LocalDate date) {
         if (date == null) {
             return null;
         }
-        LocalDate originalDate = date.toLocalDate();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        return originalDate.format(formatter);
-
+        return date.format(formatter);
     }
 
 
