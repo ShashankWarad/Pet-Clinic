@@ -24,9 +24,11 @@
             border-radius: 20px;
             font-size: 0.85rem;
         }
-        .past-appointment {
-         background-color: #f8f9fa;
-         opacity: 0.8;
+        .past-appointment td{
+         background-color: rgba(40, 167, 69, 0.2) !important;
+         }
+        .scheduled td{
+         background-color: rgba(255, 252, 127,0.2) !important;
          }
     </style>
 </head>
@@ -61,14 +63,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${visitedDetails == null or visitedDetails.isEmpty()}"
-                        th:class="${visit.visitDate != null} ? (${visit.visitDate.isBefore(now)} ? 'past-appointment' : '')">
+                    <tr th:if="${visitedDetails == null or visitedDetails.isEmpty()}">
                         <td colspan="5" class="text-center py-4 text-muted">
                             <i class="bi bi-calendar-x me-2"></i>No appointments found
                         </td>
                     </tr>
                     <tr th:each="visit : ${visitedDetails}"
-                        th:class="${visit.visitDate != null} ? (${visit.visitDate.isBefore(now)} ? 'past-appointment' : '')">
+                        th:class="${visit.visitDate != null} ? (${visit.visitDate.isBefore(now)} ? 'past-appointment' : 'scheduled')">
                         <td class="align-middle" th:text="${visit.petName}"></td>
                         <td class="align-middle" th:text="${visit.vetName}"></td>
                         <td class="align-middle">
@@ -80,7 +81,7 @@
                         <td class="align-middle text-muted" th:text="${visit.description}"></td>
                         <td class="align-middle text-center">
                            <span th:if="${visit.visitDate != null && visit.visitDate.isBefore(now)}"
-                                 class="text-muted">Completed</span>
+                                 class="btn btn-sm btn-outline-success">Completed</span>
                             <div th:unless="${visit.visitDate != null && visit.visitDate.isBefore(now)}">
                                 <a th:href="${visit.id != null ? '/api/auth/cancel-visit/' + visit.id : '#'}"
                                    class="btn btn-sm btn-outline-danger"
