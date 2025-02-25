@@ -2,6 +2,7 @@ package com.technoboost.pet_clinic.app.resource;
 
 
 import com.technoboost.pet_clinic.app.payload.VisitsCreatePayload;
+import com.technoboost.pet_clinic.app.repository.VetsRepository;
 import com.technoboost.pet_clinic.app.repository.VisitsRepository;
 import com.technoboost.pet_clinic.app.service.PetsService;
 import com.technoboost.pet_clinic.app.service.VetsService;
@@ -25,7 +26,7 @@ public class VisitResource {
     private final VisitService visitService;
     private final PetsService petsService;
     private final VetsService vetsService;
-    private final VisitsRepository visitsRepository;
+    private final VetsRepository vetsRepository;
 
     @GetMapping("/Book-Appointment")
     public String appointment(Model model) {
@@ -42,6 +43,7 @@ public class VisitResource {
          visitService.createVisit(payload, userPrincipal);
          model.addAttribute("date",payload.getVisitDate().toLocalDate());
          model.addAttribute("time",payload.getVisitDate().toLocalTime());
+         model.addAttribute("vetName",vetsRepository.findById(payload.getVetId()).get().getFirstName());
          return "booking-success";
     }
 

@@ -80,8 +80,8 @@
                         </td>
                         <td class="align-middle text-muted" th:text="${visit.description}"></td>
                         <td class="align-middle text-center">
-                           <span th:if="${visit.visitDate != null && visit.visitDate.isBefore(now)}"
-                                 class="btn btn-sm btn-outline-success">Completed</span>
+                           <button type="button" th:if="${visit.visitDate != null && visit.visitDate.isBefore(now)}"
+                                 class="btn btn-outline-success" disabled >Completed</button>
                             <div th:unless="${visit.visitDate != null && visit.visitDate.isBefore(now)}">
                                 <a th:href="${visit.id != null ? '/api/auth/cancel-visit/' + visit.id : '#'}"
                                    class="btn btn-sm btn-outline-danger"
