@@ -24,12 +24,34 @@
             border-radius: 20px;
             font-size: 0.85rem;
         }
-        .past-appointment td{
-         background-color: rgba(40, 167, 69, 0.2) !important;
-         }
-        .scheduled td{
-         background-color: rgba(255, 252, 127,0.2) !important;
-         }
+
+.past-appointment td {
+    background-color: rgba(40, 167, 69, 0.1) !important;
+    color: #28a745;
+}
+
+.scheduled td {
+    background-color: rgba(255, 193, 7, 0.1) !important; /* Light amber with 10% opacity */
+    color: #ffc107; /* Darker amber for text */
+}
+
+.canceled td {
+    background-color: rgba(220, 53, 69, 0.1) !important; /* Light red with 10% opacity */
+    color: #dc3545; /* Darker red for text */
+}
+
+td{
+opacity: 0.8;
+    transition: opacity 1s ease-in-out;
+    }
+
+/* Hover Effects */
+.past-appointment:hover td,
+.scheduled:hover td,
+.canceled:hover td {
+    opacity : 1 !important;
+}
+
     </style>
 </head>
 <body class="bg-light">
@@ -57,7 +79,7 @@
                     <tr>
                         <th class="align-middle">Pet Name</th>
                         <th class="align-middle">Veterinarian</th>
-                        <th class="align-middle">Appointment Date</th>
+                        <th class="align-middle text-center">Appointment Date & Time</th>
                         <th class="align-middle">Details</th>
                         <th class="align-middle text-center">Actions</th>
                     </tr>
@@ -69,22 +91,33 @@
                         </td>
                     </tr>
                     <tr th:each="visit : ${visitedDetails}"
-                        th:class="${visit.visitDate != null} ? (${visit.visitDate.isBefore(now)} ? 'past-appointment' : 'scheduled')">
+                        th:class="${visit.canceled} ? 'canceled' : (${visit.visitDate.isBefore(now)} ? 'past-appointment' : 'scheduled')">
                         <td class="align-middle" th:text="${visit.petName}"></td>
                         <td class="align-middle" th:text="${visit.vetName}"></td>
-                        <td class="align-middle">
-                                    <span class="badge bg-info text-dark">
-                                        <i class="bi bi-clock me-1"></i>
+                        <td class="align-middle text-center">
+                                    <span class="badge bg-info text-dark bg-opacity-50">
                                         <span th:text="${#temporals.format(visit.visitDate, 'dd MMM yyyy HH:mm')}"></span>
                                     </span>
                         </td>
                         <td class="align-middle text-muted" th:text="${visit.description}"></td>
                         <td class="align-middle text-center">
-                           <button type="button" th:if="${visit.visitDate != null && visit.visitDate.isBefore(now)}"
-                                 class="btn btn-outline-success" disabled >Completed</button>
-                            <div th:unless="${visit.visitDate != null && visit.visitDate.isBefore(now)}">
-                                <a th:href="${visit.id != null ? '/api/auth/cancel-visit/' + visit.id : '#'}"
-                                   class="btn btn-sm btn-outline-danger"
+                            <!-- 1. Canceled State (Highest Priority) -->
+                            <button th:if="${visit.canceled}"
+                                    class="btn btn-outline-secondary"
+                                    disabled>
+                                <i class="bi bi-x-octagon me-1"></i>Canceled
+                            </button>
+
+                            <!-- 2. Completed State (Only if not canceled) -->
+                            <button th:if="${!visit.canceled && visit.visitDate != null && visit.visitDate.isBefore(now)}"
+                                    class="btn btn-outline-success"
+                                    disabled>
+                                <i class="bi bi-check-circle me-1"></i>Completed
+                            </button>
+
+                            <!-- 3. Active State (Only if neither canceled nor completed) -->
+                            <div th:if="${!visit.canceled && (visit.visitDate == null || !visit.visitDate.isBefore(now))}">
+                                <a class="btn btn-sm btn-outline-danger"
                                    onclick="return confirmCancel(this)"
                                    th:attr="data-url=@{/api/auth/cancel-visit/{id}(id=${visit.id})}">
                                     <i class="bi bi-x-circle me-1"></i>Cancel

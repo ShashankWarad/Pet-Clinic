@@ -75,6 +75,7 @@ public class VisitServiceImpl implements VisitService {
                         .vetName(visit.getVet().getFirstName())
                         .visitDate(visit.getVisitDate())
                         .description(visit.getDescription())
+                        .canceled(visit.isCanceled())
                         .build()
         ).toList();
         return VisitResponse.builder()
@@ -88,8 +89,7 @@ public class VisitServiceImpl implements VisitService {
 //                .orElseThrow(() -> new PetClinicException("Un Authorized user"));
         Visits visits = visitsRepository.findByIdActiveTrueAndDeletedFalse(2L, id)
                 .orElseThrow(() -> new PetClinicException("Visit Not found " + id));
-        visits.setActive(false);
-        visits.setDeleted(true);
+        visits.setCanceled(true);
         visitsRepository.save(visits);
     }
 }

@@ -21,4 +21,6 @@ public class VisitDto {
     private LocalDateTime visitDate;
 
     private String description;
+
+    private boolean canceled;
 }

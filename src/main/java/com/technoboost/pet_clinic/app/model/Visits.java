@@ -34,4 +34,7 @@ public class Visits extends BaseAudit {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    @Column(name = "is_canceled", nullable = false)
+    private boolean canceled = false;
 }
