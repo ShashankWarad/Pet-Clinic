@@ -7,9 +7,9 @@ import com.technoboost.pet_clinic.response.ApiResponse;
 import com.technoboost.pet_clinic.security.UserPrincipal;
 
 public interface PetsService {
-    ApiResponse createPets(PetsCreatePayload payload ,UserPrincipal userPrincipal);
+    ApiResponse createPets(PetsCreatePayload payload, UserPrincipal userPrincipal);
 
-    ApiResponse updatePets(PetsUpdatePayload payload,UserPrincipal userPrincipal);
+    ApiResponse updatePets(PetsUpdatePayload payload, UserPrincipal userPrincipal);
 
     ApiResponse deletePets(Long id);
 

@@ -12,5 +12,5 @@ import java.util.List;
 public class VetsDto {
     private Long id;
     private String vetName;
-    private List <SpecialtiesDto> specialties;
+    private List<SpecialtiesDto> specialties;
 }

@@ -11,17 +11,17 @@ import java.util.List;
 @Table(name = "vets")
 @Getter
 @Setter
-public class Vets extends BaseAudit{
+public class Vets extends BaseAudit {
 
     @Column(name = "first_name")
-    private String  firstName;
+    private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "vet_specialties",joinColumns = @JoinColumn(name = "vet_id"),
-    inverseJoinColumns = @JoinColumn(name = "specialties_id"))
+    @JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"),
+            inverseJoinColumns = @JoinColumn(name = "specialties_id"))
     private List<Specialties> specialties;
 
 }

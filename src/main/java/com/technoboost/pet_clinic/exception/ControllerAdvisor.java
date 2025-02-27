@@ -39,6 +39,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
                 .timestamp(UtilMethod.currentDateTime())
                 .build());
     }
+
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException ex) {
@@ -48,6 +49,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         body.put("statusCode", HttpStatus.FORBIDDEN.value());
         body.put("message", "You do not have the necessary authority to access this resource.");
         return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
-       // return new ResponseEntity<>("You do not have the necessary authority to access this resource.", HttpStatus.FORBIDDEN);
+        // return new ResponseEntity<>("You do not have the necessary authority to access this resource.", HttpStatus.FORBIDDEN);
     }
 }

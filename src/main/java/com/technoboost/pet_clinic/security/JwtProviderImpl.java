@@ -1,8 +1,8 @@
 package com.technoboost.pet_clinic.security;
 
 import com.technoboost.pet_clinic.exception.PetClinicException;
-import io.jsonwebtoken.*;
 import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.*;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -49,7 +49,7 @@ public class JwtProviderImpl implements JwtProvider {
 
     private PrivateKey getPrivateKey() {
         try {
-            return (PrivateKey) keyStore.getKey( "wf", "4v>fsXvs8DFCQWF".toCharArray());
+            return (PrivateKey) keyStore.getKey("wf", "4v>fsXvs8DFCQWF".toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
             throw new PetClinicException("Exception occurred while retrieving public key from keystore");
         }
@@ -74,7 +74,7 @@ public class JwtProviderImpl implements JwtProvider {
 
     private PublicKey getPublicKey() {
         try {
-            return keyStore.getCertificate( "wf").getPublicKey();
+            return keyStore.getCertificate("wf").getPublicKey();
         } catch (KeyStoreException e) {
             throw new PetClinicException("Exception occurred while retrieving public key from keystore");
         }

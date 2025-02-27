@@ -18,8 +18,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TypesServiceImpl implements TypesService{
+public class TypesServiceImpl implements TypesService {
     private final TypesRepository typesRepository;
+
     @Override
     public ApiResponse createTypes(TypeCreatePayload payload) {
         boolean b = typesRepository.existsNameInActiveTrueAndDeletedFalse(payload.getName());
@@ -43,7 +44,7 @@ public class TypesServiceImpl implements TypesService{
     @Override
     public ApiResponse updateTypes(TypeUpdatePayload payload) {
         Types types = typesRepository.findByIdAndActiveTrueAndDeletedFalse(payload.getId())
-                .orElseThrow(()->new PetClinicException("Types Id is not exists please try another id!"));
+                .orElseThrow(() -> new PetClinicException("Types Id is not exists please try another id!"));
         types.setName(payload.getName());
         typesRepository.save(types);
         return ApiResponse.builder()
@@ -60,7 +61,7 @@ public class TypesServiceImpl implements TypesService{
     @Override
     public ApiResponse deleteTypes(Long id) {
         Types types = typesRepository.findByIdAndActiveTrueAndDeletedFalse(id)
-                .orElseThrow(()->new PetClinicException("Types Id is not exists please try another id!"));
+                .orElseThrow(() -> new PetClinicException("Types Id is not exists please try another id!"));
         types.setDeleted(true);
         types.setActive(false);
         return ApiResponse.builder()

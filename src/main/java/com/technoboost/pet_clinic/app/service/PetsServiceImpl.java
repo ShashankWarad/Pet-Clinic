@@ -24,16 +24,17 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PetsServiceImpl implements PetsService{
-    private  final UtilMethod utilMethod;
+public class PetsServiceImpl implements PetsService {
+    private final UtilMethod utilMethod;
     private final PetsRepository petsRepository;
 
     private final TypesRepository typesRepository;
+
     @Override
     public ApiResponse createPets(PetsCreatePayload payload, UserPrincipal userPrincipal) {
         User user = utilMethod.checkPrincipal(userPrincipal);
         Types types = typesRepository.findByIdAndActiveTrueAndDeletedFalse(payload.getTypeId()).
-                orElseThrow(()->new PetClinicException("This types id is not exists , please insert an other id!"));
+                orElseThrow(() -> new PetClinicException("This types id is not exists , please insert an other id!"));
         Pets pets = new Pets();
         pets.setName(payload.getName());
         pets.setOwner(user);
@@ -52,12 +53,12 @@ public class PetsServiceImpl implements PetsService{
     }
 
     @Override
-    public ApiResponse updatePets(PetsUpdatePayload payload,UserPrincipal userPrincipal) {
+    public ApiResponse updatePets(PetsUpdatePayload payload, UserPrincipal userPrincipal) {
         User user = utilMethod.checkPrincipal(userPrincipal);
         Pets pets = petsRepository.findByIdAndActiveTrueAndDeletedFalse(payload.getId())
-                .orElseThrow(()->new PetClinicException("Please Enter valid pet id!"));
+                .orElseThrow(() -> new PetClinicException("Please Enter valid pet id!"));
         Types types = typesRepository.findByIdAndActiveTrueAndDeletedFalse(payload.getTypeId()).
-                orElseThrow(()->new PetClinicException("This types id is not exists , please insert an other id!"));
+                orElseThrow(() -> new PetClinicException("This types id is not exists , please insert an other id!"));
         pets.setName(payload.getName());
         pets.setOwner(user);
         pets.setTypes(types);
@@ -77,7 +78,7 @@ public class PetsServiceImpl implements PetsService{
     @Override
     public ApiResponse deletePets(Long id) {
         Pets pets = petsRepository.findByIdAndActiveTrueAndDeletedFalse(id)
-                .orElseThrow(()->new PetClinicException("Please Enter valid pet id!"));
+                .orElseThrow(() -> new PetClinicException("Please Enter valid pet id!"));
         pets.setActive(false);
         pets.setDeleted(true);
         petsRepository.save(pets);
@@ -95,8 +96,8 @@ public class PetsServiceImpl implements PetsService{
     @Override
     public PetsResponse getAllPets() {
         List<Pets> pets = petsRepository.findByActiveTrueAndDeletedFalse();
-        List<PetsDto> petsDtos= pets.stream()
-                .map(p-> PetsDto
+        List<PetsDto> petsDtos = pets.stream()
+                .map(p -> PetsDto
                         .builder()
                         .id(p.getId())
                         .name(p.getName())

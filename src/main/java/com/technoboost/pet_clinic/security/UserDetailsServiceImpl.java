@@ -1,4 +1,5 @@
 package com.technoboost.pet_clinic.security;
+
 import com.technoboost.pet_clinic.model.User;
 import com.technoboost.pet_clinic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

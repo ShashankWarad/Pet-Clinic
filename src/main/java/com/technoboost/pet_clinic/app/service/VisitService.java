@@ -8,7 +8,7 @@ public interface VisitService {
 
     void createVisit(VisitsCreatePayload payload, UserPrincipal userPrincipal);
 
-    VisitResponse getAllVisit( UserPrincipal userPrincipal);
+    VisitResponse getAllVisit(UserPrincipal userPrincipal);
 
     void deleteVisit(Long id, UserPrincipal userPrincipal);
 }

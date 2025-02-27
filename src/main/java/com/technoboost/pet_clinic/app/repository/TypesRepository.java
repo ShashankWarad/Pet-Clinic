@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TypesRepository extends JpaRepository<Types,Long> {
+public interface TypesRepository extends JpaRepository<Types, Long> {
     @Query("SELECT COUNT(t) > 0 FROM Types t WHERE t.name = :name AND t.active = true AND t.deleted = false")
     boolean existsNameInActiveTrueAndDeletedFalse(@Param("name") String name);
 

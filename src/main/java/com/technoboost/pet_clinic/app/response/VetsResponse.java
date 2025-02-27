@@ -10,5 +10,5 @@ import java.util.List;
 @Setter
 @Builder
 public class VetsResponse {
-   private List<VetsDto> vets;
+    private List<VetsDto> vets;
 }

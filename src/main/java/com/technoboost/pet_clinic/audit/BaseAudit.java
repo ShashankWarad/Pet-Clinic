@@ -11,7 +11,6 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -22,7 +21,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class BaseAudit{
+public abstract class BaseAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

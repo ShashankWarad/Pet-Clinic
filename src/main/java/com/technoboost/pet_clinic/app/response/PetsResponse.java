@@ -1,6 +1,5 @@
 package com.technoboost.pet_clinic.app.response;
 
-import com.technoboost.pet_clinic.app.dto.OwnerDto;
 import com.technoboost.pet_clinic.app.dto.PetsDto;
 import lombok.Builder;
 import lombok.Getter;

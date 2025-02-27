@@ -18,7 +18,7 @@ public class AuthResource {
     private final AuthService authService;
 
     @PostMapping("sign-up")
-    public ResponseEntity<ApiResponse> createUser(@RequestBody CreateUserPayload payload){
+    public ResponseEntity<ApiResponse> createUser(@RequestBody CreateUserPayload payload) {
 
         return ResponseEntity
                 .ok(authService.signUp(payload));
@@ -26,7 +26,7 @@ public class AuthResource {
     }
 
     @PostMapping("login")
-    public ResponseEntity<?> logIn(@RequestBody LoginPayload payload){
+    public ResponseEntity<?> logIn(@RequestBody LoginPayload payload) {
 
         return ResponseEntity
                 .ok(authService.logIn(payload));

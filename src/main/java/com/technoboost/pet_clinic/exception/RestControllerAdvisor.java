@@ -12,13 +12,13 @@ import java.util.Map;
 public class RestControllerAdvisor {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String,String> getExceptionDetails(MethodArgumentNotValidException exception){
-        Map<String,String> errorMap = new HashMap<String,String>();
+    public Map<String, String> getExceptionDetails(MethodArgumentNotValidException exception) {
+        Map<String, String> errorMap = new HashMap<String, String>();
 
         exception.getBindingResult().getAllErrors().forEach(erd -> {
             String errorField = ((FieldError) erd).getField();
             String errorMessage = erd.getDefaultMessage();
-            errorMap.put(errorField,errorMessage);
+            errorMap.put(errorField, errorMessage);
         });
         return errorMap;
     }

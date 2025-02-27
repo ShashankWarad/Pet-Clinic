@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface PetsRepository extends JpaRepository<Pets,Long> {
+public interface PetsRepository extends JpaRepository<Pets, Long> {
     @Query("select p from Pets p where p.active = true and p.deleted = false")
     List<Pets> findByActiveTrueAndDeletedFalse();
 

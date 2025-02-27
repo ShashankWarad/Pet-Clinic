@@ -15,42 +15,43 @@
                     <h3>Book Appointment</h3>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/api/auth/visit}" th:object="${visit}" method="post">
+                    <form method="post" th:action="@{/api/auth/visit}" th:object="${visit}">
 
                         <!-- Pet & Vet Selection -->
                         <div class="mb-3">
                             <label class="form-label">Pet Name:</label>
-                            <select th:field="*{petId}" class="form-select">
-                                <option value="" selected disabled>Select Pet</option>
-                                <option th:each="pet : ${pets}" th:value="${pet.id}" th:text="${pet.name}"></option>
+                            <select class="form-select" th:field="*{petId}">
+                                <option disabled selected value="">Select Pet</option>
+                                <option th:each="pet : ${pets}" th:text="${pet.name}" th:value="${pet.id}"></option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Veterinarian Name:</label>
-                            <select th:field="*{vetId}" class="form-select">
-                                <option value="" selected disabled>Select Veterinarian</option>
-                                <option th:each="vet : ${vets}" th:value="${vet.id}" th:text="${vet.vetName}"></option>
+                            <select class="form-select" th:field="*{vetId}">
+                                <option disabled selected value="">Select Veterinarian</option>
+                                <option th:each="vet : ${vets}" th:text="${vet.vetName}" th:value="${vet.id}"></option>
                             </select>
                         </div>
 
                         <!-- Visit Date -->
                         <div class="mb-3">
                             <label class="form-label">Visiting Date:</label>
-                            <input type="datetime-local" th:field="*{visitDate}" class="form-control" required>
+                            <input class="form-control" required th:field="*{visitDate}" type="datetime-local">
                         </div>
 
                         <!-- Description -->
                         <div class="mb-3">
                             <label class="form-label">Description:</label>
-                            <textarea th:field="*{description}" class="form-control" rows="3" required></textarea>
+                            <textarea class="form-control" required rows="3" th:field="*{description}"></textarea>
                         </div>
 
                         <!-- Buttons -->
                         <div class="d-flex align-items-center">
-                            <a href="/api/auth/home" class="btn btn-secondary" style="margin-right: auto;">Back</a>
-                            <button type="submit" class="btn btn-success"
-                                    style="position: absolute; left: 50%; transform: translateX(-50%);">Submit
+                            <a class="btn btn-secondary" href="/api/auth/home" style="margin-right: auto;">Back</a>
+                            <button class="btn btn-success"
+                                    style="position: absolute; left: 50%; transform: translateX(-50%);"
+                                    type="submit">Submit
                             </button>
                         </div>
 

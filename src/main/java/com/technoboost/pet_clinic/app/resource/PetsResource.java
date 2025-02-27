@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1")
@@ -21,26 +19,27 @@ public class PetsResource {
 
     @PostMapping("pet")
     public ResponseEntity<ApiResponse> createPets(@RequestBody PetsCreatePayload payload,
-                                                  @CurrentUser UserPrincipal userPrincipal){
+                                                  @CurrentUser UserPrincipal userPrincipal) {
         return ResponseEntity
-                .ok(petsService.createPets(payload,userPrincipal));
+                .ok(petsService.createPets(payload, userPrincipal));
 
     }
+
     @PutMapping("pet")
     public ResponseEntity<ApiResponse> updatePets(@RequestBody PetsUpdatePayload payload,
-                                                  @CurrentUser UserPrincipal userPrincipal){
+                                                  @CurrentUser UserPrincipal userPrincipal) {
         return ResponseEntity
-                .ok(petsService.updatePets(payload,userPrincipal));
+                .ok(petsService.updatePets(payload, userPrincipal));
     }
 
     @DeleteMapping("pet/{id}")
-    public ResponseEntity<ApiResponse> deletePets(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> deletePets(@PathVariable Long id) {
         return ResponseEntity
                 .ok(petsService.deletePets(id));
     }
 
     @GetMapping("pets")
-    public ResponseEntity<PetsResponse> getAllPets(){
+    public ResponseEntity<PetsResponse> getAllPets() {
         return ResponseEntity
                 .ok(petsService.getAllPets());
     }

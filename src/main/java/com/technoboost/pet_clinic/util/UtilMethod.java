@@ -25,12 +25,6 @@ public class UtilMethod {
         return LocalDateTime.now().toString();
     }
 
-    public User checkPrincipal(UserPrincipal principal) {
-        if (principal == null || principal.getUser() == null) {
-            throw new PetClinicException("Unauthorized Data");
-        }
-        return principal.getUser();
-    }
     public static String convertDateFormat(LocalDate date) {
         if (date == null) {
             return null;
@@ -44,7 +38,14 @@ public class UtilMethod {
             return null;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        return LocalDateTime.parse(date,formatter);
+        return LocalDateTime.parse(date, formatter);
+    }
+
+    public User checkPrincipal(UserPrincipal principal) {
+        if (principal == null || principal.getUser() == null) {
+            throw new PetClinicException("Unauthorized Data");
+        }
+        return principal.getUser();
     }
 
 }

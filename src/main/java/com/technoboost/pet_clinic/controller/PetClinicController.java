@@ -20,8 +20,8 @@ public class PetClinicController {
     private final VisitService visitService;
 
     @GetMapping({"/home", "/"})
-    public String home(Model model, @CurrentUser UserPrincipal userPrincipal){
-        model.addAttribute("visitedDetails",visitService.getAllVisit(userPrincipal).getVisitedList());
+    public String home(Model model, @CurrentUser UserPrincipal userPrincipal) {
+        model.addAttribute("visitedDetails", visitService.getAllVisit(userPrincipal).getVisitedList());
         model.addAttribute("now", LocalDateTime.now());
         return "home";
     }

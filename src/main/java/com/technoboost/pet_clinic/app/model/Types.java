@@ -16,6 +16,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "_types")
 public class Types extends BaseAudit {
-    @Column(name = "name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 }

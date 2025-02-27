@@ -20,7 +20,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -79,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
         User user = new User();
         boolean b = userRepository.existsByUsernameAndEnabledTrue(payload.getUsername());
         if (b)
-            throw new PetClinicException("Username already exist , PLease enter another email!");
+            throw new PetClinicException("Username already exist , PLease enter another username!");
         boolean c = userRepository.existsByMobileNumberAndEnabledTrue(payload.getMobileNumber());
         if (c)
             throw new PetClinicException("Mobile number already exist , PLease enter another Mobile number!");
@@ -89,9 +88,9 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(encodePassword(payload.getPassword()));
         user.setAddress(payload.getAddress());
         user.setCity(payload.getCity());
-        Role role = roleRepository.findByName("ADMIN").
-                orElseThrow(() -> new PetClinicException("Check role!"));
-        user.setRoles(Collections.singleton(role));
+//        Role role = roleRepository.findByName("ADMIN").
+//                orElseThrow(() -> new PetClinicException("Check role!"));
+//        user.setRoles(Collections.singleton(role));
         userRepository.saveAndFlush(user);
         return ApiResponse.builder()
                 .id(user.getId())

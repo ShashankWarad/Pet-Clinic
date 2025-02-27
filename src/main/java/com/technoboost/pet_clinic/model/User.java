@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,11 +55,11 @@ public class User {
     @Column(nullable = false, name = "enabled")
     private boolean enabled = true;
 
-    @Column(name = "created_date",nullable = false,updatable = false)
+    @Column(name = "created_date", nullable = false, updatable = false)
     @CreatedDate
     private LocalDateTime createdDate;
 
-    @Column(name = "last_modified_date",nullable = false,updatable = false)
+    @Column(name = "last_modified_date", nullable = false, updatable = false)
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
