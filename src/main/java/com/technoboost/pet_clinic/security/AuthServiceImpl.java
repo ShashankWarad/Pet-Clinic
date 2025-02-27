@@ -1,7 +1,6 @@
 package com.technoboost.pet_clinic.security;
 
 import com.technoboost.pet_clinic.exception.PetClinicException;
-import com.technoboost.pet_clinic.model.Role;
 import com.technoboost.pet_clinic.model.User;
 import com.technoboost.pet_clinic.payload.CreateUserPayload;
 import com.technoboost.pet_clinic.payload.LoginPayload;
@@ -24,7 +23,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 
 @Slf4j
 @RequiredArgsConstructor

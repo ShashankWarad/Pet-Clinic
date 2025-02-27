@@ -2,7 +2,6 @@ package com.technoboost.pet_clinic.controller;
 
 import com.technoboost.pet_clinic.app.payload.PetsCreatePayload;
 import com.technoboost.pet_clinic.app.repository.TypesRepository;
-import com.technoboost.pet_clinic.app.response.PetsResponse;
 import com.technoboost.pet_clinic.app.service.PetsService;
 import com.technoboost.pet_clinic.repository.UserRepository;
 import com.technoboost.pet_clinic.response.ApiResponse;
@@ -16,18 +15,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller  // Change from @RestController to @Controller
+@Controller
 @RequiredArgsConstructor
-@RequestMapping("/pets")  // Simplified URL structure
 public class PetsController {
     private final PetsService petsService;
-    private final TypesRepository petTypeRepository;  // Add this
-    private final UserRepository ownerRepository;      // Add this
+    private final TypesRepository petTypeRepository;
+    private final UserRepository ownerRepository;
 
-    @GetMapping("/new")
+    @GetMapping("pets/new")
     public String showCreatePetForm(Model model) {
         model.addAttribute("petsCreatePayload", new PetsCreatePayload());
 
@@ -38,7 +35,7 @@ public class PetsController {
         return "AddPet";
     }
 
-    @PostMapping("/new")
+    @PostMapping("pets/new")
     public String createPet(@Valid @ModelAttribute("petsCreatePayload") PetsCreatePayload payload,
                             BindingResult result,
                             RedirectAttributes redirectAttributes) {
@@ -52,12 +49,12 @@ public class PetsController {
         return "redirect:/pets";
     }
 
-    @GetMapping("")
-    public String getAllPets(Model model) {
-        PetsResponse petsResponse = petsService.getAllPets();
-        model.addAttribute("pets", petsResponse.getPets());
-        return "pets/list";
-    }
+//    @GetMapping("")
+//    public String getAllPets(Model model) {
+//        PetsResponse petsResponse = petsService.getAllPets();
+//        model.addAttribute("pets", petsResponse.getPets());
+//        return "pets/list";
+//    }
 
     private UserPrincipal getCurrentUser() {
         // Implementation depends on your security setup
