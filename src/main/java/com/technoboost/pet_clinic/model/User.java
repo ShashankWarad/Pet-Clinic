@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import java.io.Serializable;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +16,8 @@ import java.util.Set;
 @Entity
 @ToString
 @Table(name = "users")
-public class User implements Serializable {
+@EntityListeners(AuditingEntityListener.class)
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -39,6 +39,12 @@ public class User implements Serializable {
     @Column(nullable = false, name = "account_non_expired")
     private boolean accountNonExpired = true;
 
+    @Column(nullable = false, name = "address")
+    private String address;
+
+    @Column(nullable = false, name = "city")
+    private String city;
+
     @Column(nullable = false, name = "account_non_locked")
     private boolean accountNonLocked = true;
 
@@ -48,11 +54,11 @@ public class User implements Serializable {
     @Column(nullable = false, name = "enabled")
     private boolean enabled = true;
 
-    @Column(name = "created_date", nullable = false, updatable = false)
+    @Column(name = "created_date",nullable = false,updatable = false)
     @CreatedDate
     private LocalDateTime createdDate;
 
-    @Column(name = "last_modified_date")
+    @Column(name = "last_modified_date",nullable = false,updatable = false)
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
@@ -62,4 +68,8 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @ToString.Exclude
     private Set<Role> roles = new HashSet<>();
+
+    public User(Long id) {
+        this.id = id;
+    }
 }

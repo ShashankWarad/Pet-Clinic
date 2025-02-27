@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pet Clinic - Appointments</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .header-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .appointment-table {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f8f9fa;
+            transition: background-color 0.2s ease;
+        }
+        .status-badge {
+            padding: 0.35rem 0.65rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+.past-appointment td {
+    background-color: rgba(40, 167, 69, 0.1) !important;
+    color: #28a745;
+}
+
+.scheduled td {
+    background-color: rgba(255, 193, 7, 0.1) !important; /* Light amber with 10% opacity */
+    color: #ffc107; /* Darker amber for text */
+}
+
+.canceled td {
+    background-color: rgba(220, 53, 69, 0.1) !important; /* Light red with 10% opacity */
+    color: #dc3545; /* Darker red for text */
+}
+
+td{
+opacity: 0.8;
+    transition: opacity 1s ease-in-out;
+    }
+
+/* Hover Effects */
+.past-appointment:hover td,
+.scheduled:hover td,
+.canceled:hover td {
+    opacity : 1 !important;
+}
+
+    </style>
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <!-- Header Section -->
+    <div class="header-card p-4 mb-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <img th:src="@{/img/logo.png}" alt="Pet Clinic Logo" class="img-fluid" style="max-width: 170px">
+            <a href="/api/auth/Book-Appointment" class="btn btn-primary btn-lg">
+                <i class="bi bi-calendar-plus me-2"></i>New Appointment
+            </a>
+        </div>
+    </div>
+
+    <!-- Appointments List -->
+    <div class="card appointment-table border-0">
+        <div class="card-header bg-primary text-white py-3">
+            <h4 class="mb-0"><i class="bi bi-list-task me-2"></i>Scheduled Appointments</h4>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-dark">
+                    <tr>
+                        <th class="align-middle">Pet Name</th>
+                        <th class="align-middle">Veterinarian</th>
+                        <th class="align-middle text-center">Appointment Date & Time</th>
+                        <th class="align-middle">Details</th>
+                        <th class="align-middle text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${visitedDetails == null or visitedDetails.isEmpty()}">
+                        <td colspan="5" class="text-center py-4 text-muted">
+                            <i class="bi bi-calendar-x me-2"></i>No appointments found
+                        </td>
+                    </tr>
+                    <tr th:each="visit : ${visitedDetails}"
+                        th:class="${visit.canceled} ? 'canceled' : (${visit.visitDate.isBefore(now)} ? 'past-appointment' : 'scheduled')">
+                        <td class="align-middle" th:text="${visit.petName}"></td>
+                        <td class="align-middle" th:text="${visit.vetName}"></td>
+                        <td class="align-middle text-center">
+                                    <span class="badge bg-info text-dark bg-opacity-50">
+                                        <span th:text="${#temporals.format(visit.visitDate, 'dd MMM yyyy HH:mm')}"></span>
+                                    </span>
+                        </td>
+                        <td class="align-middle text-muted" th:text="${visit.description}"></td>
+                        <td class="align-middle text-center">
+                            <!-- 1. Canceled State (Highest Priority) -->
+                            <button th:if="${visit.canceled}"
+                                    class="btn btn-outline-secondary"
+                                    disabled>
+                                <i class="bi bi-x-octagon me-1"></i>Canceled
+                            </button>
+
+                            <!-- 2. Completed State (Only if not canceled) -->
+                            <button th:if="${!visit.canceled && visit.visitDate != null && visit.visitDate.isBefore(now)}"
+                                    class="btn btn-outline-success"
+                                    disabled>
+                                <i class="bi bi-check-circle me-1"></i>Completed
+                            </button>
+
+                            <!-- 3. Active State (Only if neither canceled nor completed) -->
+                            <div th:if="${!visit.canceled && (visit.visitDate == null || !visit.visitDate.isBefore(now))}">
+                                <a class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirmCancel(this)"
+                                   th:attr="data-url=@{/api/auth/cancel-visit/{id}(id=${visit.id})}">
+                                    <i class="bi bi-x-circle me-1"></i>Cancel
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function confirmCancel(element) {
+        const url = element.getAttribute("data-url");
+        if (confirm("Are you sure you want to cancel this appointment?")) {
+            window.location.href = url;
+        }
+        return false;
+    }
+</script>
+</body>
+</html>
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book Appointment</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>Book Appointment</h3>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/api/auth/visit}" th:object="${visit}" method="post">
+
+                        <!-- Pet & Vet Selection -->
+                        <div class="mb-3">
+                            <label class="form-label">Pet Name:</label>
+                            <select th:field="*{petId}" class="form-select">
+                                <option value="" selected disabled>Select Pet</option>
+                                <option th:each="pet : ${pets}" th:value="${pet.id}" th:text="${pet.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Veterinarian Name:</label>
+                            <select th:field="*{vetId}" class="form-select">
+                                <option value="" selected disabled>Select Veterinarian</option>
+                                <option th:each="vet : ${vets}" th:value="${vet.id}" th:text="${vet.vetName}"></option>
+                            </select>
+                        </div>
+
+                        <!-- Visit Date -->
+                        <div class="mb-3">
+                            <label class="form-label">Visiting Date:</label>
+                            <input type="datetime-local" th:field="*{visitDate}" class="form-control" required>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label class="form-label">Description:</label>
+                            <textarea th:field="*{description}" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-flex align-items-center">
+                            <a href="/api/auth/home" class="btn btn-secondary" style="margin-right: auto;">Back</a>
+                            <button type="submit" class="btn btn-success"
+                                    style="position: absolute; left: 50%; transform: translateX(-50%);">Submit
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS (optional, for interactive features) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
