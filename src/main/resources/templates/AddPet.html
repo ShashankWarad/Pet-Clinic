@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Pet</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title">Add New Pet</h2>
+                </div>
+                <div class="card-body">
+                    <form th:object="${petsCreatePayload}" th:action="@{/pets/new}" method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                            <div class="alert alert-danger mt-2" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="birthDate" class="form-label">Birth Date</label>
+                            <input type="date" class="form-control" id="birthDate" th:field="*{birthDate}" required>
+                            <div class="alert alert-danger mt-2" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">Birth Date Error</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="typeId" class="form-label">Pet Type</label>
+                            <select class="form-select" id="typeId" th:field="*{typeId}" required>
+                                <option value="">-- Select Pet Type --</option>
+<!--                                <option th:each="petType : ${petTypes}" th:value="${petType.id}" th:text="${petType.name}">Dog</option>-->
+                            </select>
+                            <div class="alert alert-danger mt-2" th:if="${#fields.hasErrors('typeId')}" th:errors="*{typeId}">Pet Type Error</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ownerId" class="form-label">Owner</label>
+                            <select class="form-select" id="ownerId" th:field="*{ownerId}" required>
+                                <option value="">-- Select Owner --</option>
+<!--                                <option th:each="owner : ${owners}" th:value="${owner.id}" th:text="${owner.firstName + ' ' + owner.lastName}">John Doe</option>-->
+                            </select>
+                            <div class="alert alert-danger mt-2" th:if="${#fields.hasErrors('ownerId')}" th:errors="*{ownerId}">Owner Error</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Save Pet</button>
+                            <a th:href="@{/pets}" class="btn btn-secondary ms-2">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

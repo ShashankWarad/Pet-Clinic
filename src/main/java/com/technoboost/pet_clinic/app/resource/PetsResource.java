@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.*;
 public class PetsResource {
     private final PetsService petsService;
 
+    @GetMapping("/pets/new")
+    public String showLoginForm() {
+        return "AddPet";
+    }
+
     @PostMapping("pet")
     public ResponseEntity<ApiResponse> createPets(@RequestBody PetsCreatePayload payload,
                                                   @CurrentUser UserPrincipal userPrincipal) {

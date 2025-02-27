@@ -15,5 +15,4 @@ public class PetsCreatePayload {
     private Long typeId;
 
     private Long ownerId;
-
 }

@@ -32,7 +32,7 @@ public class LoginController {
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
                 AuthenticationResponse authenticationResponse = (AuthenticationResponse) responseEntity.getBody();
                 model.addAttribute("message", "Login successful!");
-                return "redirect:/home";
+                return "redirect:/api/auth/home";
             } else {
                 ApiResponse apiResponse = (ApiResponse) responseEntity.getBody();
                 model.addAttribute("error", apiResponse.getMessage());
