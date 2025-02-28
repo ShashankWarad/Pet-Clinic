@@ -21,25 +21,25 @@ public class PetsResource {
     private final TypesRepository petTypeRepository;
     private final UserRepository ownerRepository;
 
-    @GetMapping("/pets/new")
-    public String showCreatePetForm(Model model) {
-
-        model.addAttribute("petsCreatePayload", new PetsCreatePayload());
-
-
-        model.addAttribute("petTypes", petTypeRepository.findAll());
-
-
-        model.addAttribute("owners", ownerRepository.findAll());
-
-        return "AddPet";
-    }
-
-    @PostMapping("pet")
-    @ResponseBody
-    public ResponseEntity<ApiResponse> createPets(@RequestBody PetsCreatePayload payload,
-                                                  @CurrentUser UserPrincipal userPrincipal) {
-        return ResponseEntity
-                .ok(petsService.createPets(payload, userPrincipal));
-    }
+//    @GetMapping("/pets/new")
+//    public String showCreatePetForm(Model model) {
+//
+//        model.addAttribute("petsCreatePayload", new PetsCreatePayload());
+//
+//
+//        model.addAttribute("petTypes", petTypeRepository.findAll());
+//
+//
+//        model.addAttribute("owners", ownerRepository.findAll());
+//
+//        return "AddPet";
+//    }
+//
+//    @PostMapping("/pets/new")
+//    @ResponseBody
+//    public ResponseEntity<ApiResponse> createPets(@RequestBody PetsCreatePayload payload,
+//                                                  @CurrentUser UserPrincipal userPrincipal) {
+//        return ResponseEntity
+//                .ok(petsService.createPets(payload, userPrincipal));
+//    }
 }

@@ -12,10 +12,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/api/auth")
 public class SignupController {
 
     private final AuthService authService;
@@ -39,7 +41,7 @@ public class SignupController {
         try {
             authService.signUp(userDTO);
             redirectAttributes.addFlashAttribute("message", "Signup successful! Please login.");
-            return "redirect:/login";
+            return "redirect:/api/auth/login";
         } catch (PetClinicException e) {
             result.rejectValue("username", "error.user", e.getMessage()); // Show the actual error message
             return "signup";

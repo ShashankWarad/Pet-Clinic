@@ -33,7 +33,7 @@
                 </div>
 
                 <!-- Login Form -->
-                <form method="post" th:action="@{/login}">
+                <form method="post" th:action="@{~/api/auth/login}">
                     <div class="mb-3">
                         <label class="form-label" for="username">Username</label>
                         <input autofocus
@@ -59,7 +59,7 @@
                 </form>
 
                 <div class="text-center mt-3">
-                    <p>Don't have an account? <a th:href="@{/signup}">Sign up here</a></p>
+                    <p>Don't have an account? <a th:href="@{~/api/auth/signup}">Sign up here</a></p>
                     <p><a th:href="@{/forgot-password}">Forgot password?</a></p>
                 </div>
             </div>

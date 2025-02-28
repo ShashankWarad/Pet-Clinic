@@ -23,7 +23,7 @@
                     <div class="alert alert-success" th:if="${message}" th:text="${message}"></div>
 
                     <!-- Signup Form -->
-                    <form method="post" th:action="@{/signup}" th:object="${user}">
+                    <form method="post" th:action="@{~/api/auth/signup}" th:object="${user}">
                         <div class="mb-3">
                             <label class="form-label" for="name">Name</label>
                             <input class="form-control" id="name" required th:field="*{name}" type="text">
@@ -72,7 +72,7 @@
                     </form>
 
                     <div class="text-center mt-3">
-                        <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
+                        <p>Already have an account? <a th:href="@{~/api/auth/login}">Login here</a></p>
                     </div>
                 </div>
             </div>
