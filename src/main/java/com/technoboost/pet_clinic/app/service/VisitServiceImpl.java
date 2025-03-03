@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +45,7 @@ public class VisitServiceImpl implements VisitService {
         Visits visits = new Visits();
         visits.setPets(pet);
         visits.setVet(vet);
-        visits.setOwner(new User(2L));
+        visits.setOwner(new User(1L));
         visits.setVisitDate(payload.getVisitDate());
         visits.setDescription(payload.getDescription());
         visitsRepository.save(visits);
@@ -63,7 +64,7 @@ public class VisitServiceImpl implements VisitService {
     public VisitResponse getAllVisit(UserPrincipal userPrincipal) {
 //        Long userId = Optional.ofNullable(userPrincipal.getUser().getId())
 //                .orElseThrow(() -> new PetClinicException("Un Authorized user"));
-        List<Visits> visitsList = visitsRepository.findAllByUserIdActiveTrueAndDeletedFalse(2L);
+        List<Visits> visitsList = visitsRepository.findAllByUserIdActiveTrueAndDeletedFalse(1L);
         if (visitsList.isEmpty()) {
             return VisitResponse.builder()
                     .visitedList(new ArrayList<>()).build();
@@ -85,9 +86,9 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     public void deleteVisit(Long id, UserPrincipal userPrincipal) {
-        //        User owner = Optional.ofNullable(userPrincipal.getUser())
+//                User owner = Optional.ofNullable(userPrincipal.getUser())
 //                .orElseThrow(() -> new PetClinicException("Un Authorized user"));
-        Visits visits = visitsRepository.findByIdActiveTrueAndDeletedFalse(2L, id)
+        Visits visits = visitsRepository.findByIdActiveTrueAndDeletedFalse(1L, id)
                 .orElseThrow(() -> new PetClinicException("Visit Not found " + id));
         visits.setCanceled(true);
         visitsRepository.save(visits);

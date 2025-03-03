@@ -45,7 +45,6 @@ public class VisitResource {
         return "booking-success";
     }
 
-
     @GetMapping("/all-visit")
     public String getAllVisits(@CurrentUser UserPrincipal userPrincipal, Model model) {
         model.addAttribute("allVisits", visitService.getAllVisit(userPrincipal));

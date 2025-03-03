@@ -33,16 +33,20 @@ public class PetsServiceImpl implements PetsService {
     @Override
     public ApiResponse createPets(PetsCreatePayload payload, UserPrincipal userPrincipal) {
         User user = utilMethod.checkPrincipal(userPrincipal);
-        Types types = typesRepository.findByIdAndActiveTrueAndDeletedFalse(payload.getTypeId()).
-                orElseThrow(() -> new PetClinicException("This types id is not exists , please insert an other id!"));
+
+        Types types = typesRepository.findByIdAndActiveTrueAndDeletedFalse(payload.getTypeId())
+                .orElseThrow(() -> new PetClinicException("This types id does not exist, please insert another id!"));
+
         Pets pets = new Pets();
         pets.setName(payload.getName());
         pets.setOwner(user);
         pets.setTypes(types);
         pets.setBirthDate(payload.getBirthDate());
-        petsRepository.saveAndFlush(pets);
+
+        Pets savedPet = petsRepository.save(pets); // Save and get the saved entity
+
         return ApiResponse.builder()
-                .id(pets.getId())
+                .id(savedPet.getId()) // Use the saved pet's ID
                 .message("Pets created successfully!")
                 .path(UtilMethod.getPath())
                 .statusCode(HttpStatus.OK.value())
@@ -123,4 +127,6 @@ public class PetsServiceImpl implements PetsService {
                 .pets(petsDtos)
                 .build();
     }
+
+
 }

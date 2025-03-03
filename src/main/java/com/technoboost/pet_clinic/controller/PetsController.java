@@ -1,5 +1,7 @@
 package com.technoboost.pet_clinic.controller;
 
+import com.technoboost.pet_clinic.app.model.Pets;
+import com.technoboost.pet_clinic.app.model.Types;
 import com.technoboost.pet_clinic.app.payload.PetsCreatePayload;
 import com.technoboost.pet_clinic.app.repository.TypesRepository;
 import com.technoboost.pet_clinic.app.service.PetsService;
@@ -25,6 +27,7 @@ public class PetsController {
     private final PetsService petsService;
     private final TypesRepository petTypeRepository;
     private final UserRepository ownerRepository;
+    private final TypesRepository typesRepository;
 
     @GetMapping("pets/new")
     public String showCreatePetForm(Model model) {
@@ -48,7 +51,7 @@ public class PetsController {
 
         redirectAttributes.addFlashAttribute("message", "Pet added successfully!");
 
-        return "redirect:/pets";
+        return "petAdded";
     }
 
 //    @GetMapping("")
@@ -59,8 +62,6 @@ public class PetsController {
 //    }
 
     private UserPrincipal getCurrentUser() {
-        // Implementation depends on your security setup
-        // This is just a placeholder
         return (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
