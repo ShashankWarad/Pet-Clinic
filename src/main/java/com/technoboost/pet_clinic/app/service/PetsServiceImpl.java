@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,22 +32,22 @@ public class PetsServiceImpl implements PetsService {
     private final TypesRepository typesRepository;
 
     @Override
-    public ApiResponse createPets(PetsCreatePayload payload, UserPrincipal userPrincipal) {
-        User user = utilMethod.checkPrincipal(userPrincipal);
+    public ApiResponse createPets(PetsCreatePayload payload) {
+//        User user = utilMethod.checkPrincipal(userPrincipal);
 
         Types types = typesRepository.findByIdAndActiveTrueAndDeletedFalse(payload.getTypeId())
                 .orElseThrow(() -> new PetClinicException("This types id does not exist, please insert another id!"));
 
         Pets pets = new Pets();
         pets.setName(payload.getName());
-        pets.setOwner(user);
+        pets.setOwner(new User(1L));
         pets.setTypes(types);
         pets.setBirthDate(payload.getBirthDate());
 
-        Pets savedPet = petsRepository.save(pets); // Save and get the saved entity
+        Pets savedPet = petsRepository.save(pets);
 
         return ApiResponse.builder()
-                .id(savedPet.getId()) // Use the saved pet's ID
+                .id(savedPet.getId())
                 .message("Pets created successfully!")
                 .path(UtilMethod.getPath())
                 .statusCode(HttpStatus.OK.value())
@@ -88,7 +89,7 @@ public class PetsServiceImpl implements PetsService {
         petsRepository.save(pets);
         return ApiResponse.builder()
                 .id(pets.getId())
-                .message("Pets updated successfully!")
+                .message("Pets deleted successfully!")
                 .path(UtilMethod.getPath())
                 .statusCode(HttpStatus.OK.value())
                 .status(HttpStatus.OK.name())
@@ -128,5 +129,15 @@ public class PetsServiceImpl implements PetsService {
                 .build();
     }
 
+    @Override
+    public Pets getPetByName(String name) {
+        return petsRepository.findByName(name).orElse(null);
+    }
 
+    @Override
+    public Optional<Pets> getPetById(Long petId) {
+        return petsRepository.findById(petId)
+                .map(Optional::of)
+                .orElseThrow(() -> new PetClinicException("Pet not found with id: " + petId));
+    }
 }

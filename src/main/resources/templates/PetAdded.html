@@ -20,13 +20,14 @@
                     <div th:if="${pet}">
                         <p><strong>Name:</strong> <span th:text="${pet.name}"></span></p>
                         <p><strong>Birth Date:</strong> <span th:text="${pet.birthDate}"></span></p>
-                        <p><strong>Pet Type:</strong> <span th:text="${pet.petTypeName}"></span></p>
-                        <p><strong>Owner:</strong> <span th:text="${pet.ownerName}"></span></p>
+                        <p><strong>Pet Type:</strong> <span th:text="${petTypeName}"></span></p>
+                        <p><strong>Owner:</strong> <span th:text="${ownerName}"></span></p>
                     </div>
 
                     <div class="mt-4">
                         <a class="btn btn-primary" th:href="@{/pets}">View Pets</a>
                         <a class="btn btn-secondary ms-2" th:href="@{/pets/add}">Add Another Pet</a>
+                        <a class="btn btn-primary" th:href="@{/api/auth/home}">Home</a>
                     </div>
                 </div>
             </div>

@@ -7,8 +7,10 @@ import com.technoboost.pet_clinic.app.response.PetsResponse;
 import com.technoboost.pet_clinic.response.ApiResponse;
 import com.technoboost.pet_clinic.security.UserPrincipal;
 
+import java.util.Optional;
+
 public interface PetsService {
-    ApiResponse createPets(PetsCreatePayload payload, UserPrincipal userPrincipal);
+    ApiResponse createPets(PetsCreatePayload payload);
 
     ApiResponse updatePets(PetsUpdatePayload payload, UserPrincipal userPrincipal);
 
@@ -16,4 +18,7 @@ public interface PetsService {
 
     PetsResponse getAllPets();
 
+    Pets getPetByName(String name);
+
+    Optional<Pets> getPetById(Long petId);
 }
